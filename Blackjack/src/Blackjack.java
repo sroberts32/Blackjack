@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Blackjack {
     public static void main(String[] args) throws Exception {
+        Scanner userInput = new Scanner(System.in);
         System.out.println("Welcome to the blackjack table.");
 
         Deck playingDeck = new Deck();
@@ -13,12 +14,10 @@ public class Blackjack {
 
         double playerMoney = 200.00;
 
-        Scanner userInput = new Scanner(System.in);
-
-        while(playerMoney > 0) {
+        while (playerMoney > 0) {
             System.out.println("You have $" + playerMoney + ". How much would you like to bet?");
             double playerBet = Double.valueOf(userInput.nextLine());
-            if(playerBet > playerMoney) {
+            if (playerBet > playerMoney) {
                 System.out.println("You don't have that much to bet.");
                 break;
             }
@@ -29,7 +28,7 @@ public class Blackjack {
             dealerDeck.draw(playingDeck);
             dealerDeck.draw(playingDeck);
 
-            while(true) {
+            while (true) {
                 System.out.println("Your Hand: ");
                 System.out.println(playerDeck.toString());
                 System.out.println("Your deck is valued at: " + playerDeck.cardsValue());
@@ -40,15 +39,15 @@ public class Blackjack {
 
                 if (response == 1) {
                     playerDeck.draw(playingDeck);
-                    System.out.println("You drew a: " + playerDeck.getCard(playerDeck.deckSize()-1).toString());
-                    if(playerDeck.cardsValue() > 21) {
+                    System.out.println("You drew a: " + playerDeck.getCard(playerDeck.deckSize() - 1).toString());
+                    if (playerDeck.cardsValue() > 21) {
                         System.out.println("BUST! Cards = " + playerDeck.cardsValue());
                         playerMoney -= playerBet;
                         endRound = true;
                         break;
                     }
                 }
-                if (response == 2){
+                if (response == 2) {
                     break;
                 }
             }
@@ -60,7 +59,7 @@ public class Blackjack {
             }
             while ((dealerDeck.cardsValue() < 17) && (endRound == false)) {
                 dealerDeck.draw(playingDeck);
-                System.out.println("Dealer drew: " + dealerDeck.getCard(dealerDeck.deckSize()-1).toString());
+                System.out.println("Dealer drew: " + dealerDeck.getCard(dealerDeck.deckSize() - 1).toString());
             }
             System.out.println("Dealer's cards = " + dealerDeck.cardsValue());
             if ((dealerDeck.cardsValue() > 21) && (endRound == false)) {
@@ -68,12 +67,12 @@ public class Blackjack {
                 playerMoney += playerBet;
                 endRound = true;
             }
-            if((playerDeck.cardsValue() == dealerDeck.cardsValue()) && (endRound = false)) {
+            if ((playerDeck.cardsValue() == dealerDeck.cardsValue()) && (endRound = false)) {
                 System.out.println("Push");
                 endRound = true;
             }
 
-            if((playerDeck.cardsValue() > dealerDeck.cardsValue()) && (endRound == false)) {
+            if ((playerDeck.cardsValue() > dealerDeck.cardsValue()) && (endRound == false)) {
                 System.out.println("Player wins!");
                 playerMoney += playerBet;
                 endRound = true;
@@ -89,5 +88,7 @@ public class Blackjack {
         }
         System.out.println("You're broke. GTFO!");
 
+        userInput.close();
     }
+
 }
