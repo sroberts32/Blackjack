@@ -51,36 +51,34 @@ public class Blackjack {
                     break;
                 }
             }
+
             System.out.println("Dealer's Cards: " + dealerDeck.toString());
-            if ((dealerDeck.cardsValue() > playerDeck.cardsValue()) && (endRound == false)) {
-                System.out.println("Dealer wins.");
-                playerMoney -= playerBet;
-                endRound = true;
-            }
+
             while ((dealerDeck.cardsValue() < 17) && (endRound == false)) {
                 dealerDeck.draw(playingDeck);
                 System.out.println("Dealer drew: " + dealerDeck.getCard(dealerDeck.deckSize() - 1).toString());
             }
+
             System.out.println("Dealer's cards = " + dealerDeck.cardsValue());
+
             if ((dealerDeck.cardsValue() > 21) && (endRound == false)) {
                 System.out.println("Dealer busts. You win!");
                 playerMoney += playerBet;
                 endRound = true;
-            }
-            if ((playerDeck.cardsValue() == dealerDeck.cardsValue()) && (endRound = false)) {
+            } else if ((playerDeck.cardsValue() > dealerDeck.cardsValue()) && (endRound == false)) {
+                System.out.println("You win!");
+                playerMoney += playerBet;
+                endRound = true;
+            } else if ((playerDeck.cardsValue() < dealerDeck.cardsValue()) && (endRound == false)) {
+                System.out.println("You lose.");
+                playerMoney -= playerBet;
+                endRound = true;
+            } else {
                 System.out.println("Push");
                 endRound = true;
             }
 
-            if ((playerDeck.cardsValue() > dealerDeck.cardsValue()) && (endRound == false)) {
-                System.out.println("Player wins!");
-                playerMoney += playerBet;
-                endRound = true;
-            } else if (endRound == false) {
-                System.out.println("You lose.");
-                playerMoney -= playerBet;
-                endRound = true;
-            }
+            System.out.println("You: " + playerDeck.cardsValue() + "  Dealer: " + dealerDeck.cardsValue());
 
             playerDeck.moveAllToDeck(playingDeck);
             dealerDeck.moveAllToDeck(playingDeck);
