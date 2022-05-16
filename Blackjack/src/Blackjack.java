@@ -21,6 +21,7 @@ public class Blackjack {
                 System.out.println("You don't have that much to bet.");
                 break;
             }
+
             boolean endRound = false;
 
             playerDeck.draw(playingDeck);
@@ -32,7 +33,7 @@ public class Blackjack {
                 System.out.println("Your Hand: ");
                 System.out.println(playerDeck.toString());
                 System.out.println("Your deck is valued at: " + playerDeck.cardsValue());
-                System.out.println("Dealer card showing: " + dealerDeck.getCard(0).toString());
+                System.out.println("\nDealer card showing: " + dealerDeck.getCard(0).toString());
 
                 System.out.println("Would you like to (1)Hit or (2)Stand?");
                 int response = Integer.valueOf(userInput.nextLine());
@@ -52,14 +53,14 @@ public class Blackjack {
                 }
             }
 
-            System.out.println("Dealer's Cards: " + dealerDeck.toString());
+            System.out.println("\nDealer's Cards: " + dealerDeck.toString());
 
             while ((dealerDeck.cardsValue() < 17) && (endRound == false)) {
                 dealerDeck.draw(playingDeck);
                 System.out.println("Dealer drew: " + dealerDeck.getCard(dealerDeck.deckSize() - 1).toString());
             }
 
-            System.out.println("Dealer's cards = " + dealerDeck.cardsValue());
+            System.out.println("\nDealer's cards = " + dealerDeck.cardsValue());
 
             if ((dealerDeck.cardsValue() > 21) && (endRound == false)) {
                 System.out.println("Dealer busts. You win!");
@@ -73,12 +74,13 @@ public class Blackjack {
                 System.out.println("You lose.");
                 playerMoney -= playerBet;
                 endRound = true;
-            } else {
+            } else if (endRound == false) {
                 System.out.println("Push");
                 endRound = true;
             }
 
-            System.out.println("You: " + playerDeck.cardsValue() + "  Dealer: " + dealerDeck.cardsValue());
+
+            System.out.println("\nYou: " + playerDeck.cardsValue() + "  Dealer: " + dealerDeck.cardsValue());
 
             playerDeck.moveAllToDeck(playingDeck);
             dealerDeck.moveAllToDeck(playingDeck);
